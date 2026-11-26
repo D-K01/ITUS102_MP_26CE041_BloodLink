@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="BloodLink helps people explore a community blood donor directory in a demonstration website.">
+  <title>BloodLink — Every drop connects us</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <header class="site-header">
+    <a class="brand" href="#home" aria-label="BloodLink home"><span class="brand-mark">+</span><span>Blood<span
+          class="brand-accent">Link</span></span></a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+    <nav class="main-nav" id="mainNav">
+      <a href="#home" class="nav-link active">Home</a>
+      <a href="#find" class="nav-link">Find donors</a>
+      <a href="#requests" class="nav-link">Blood requests</a>
+      <a href="#register" class="nav-link">Become a donor</a>
+      <a href="#dashboard" class="nav-link">Dashboard</a>
+    </nav>
+    <a class="header-cta" href="#request-form">Request blood <span>↗</span></a>
+  </header>
+
+  <main>
+    <section class="hero section-wrap" id="home">
+      <div class="hero-copy">
+        <div class="eyebrow"><span class="pulse-dot"></span> COMMUNITY. COMPASSION. CONNECTION.</div>
+        <h1>Small act.<br><span>Big difference.</span></h1>
+        <p class="hero-lead">When someone needs blood, finding the right connection matters. BloodLink brings voluntary
+          donors and people seeking help a little closer.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#find">Find a donor <span>→</span></a>
+          <a class="btn btn-light" href="#register">I want to donate</a>
+        </div>
+        <div class="trust-line"><span class="trust-heart">♥</span><span>A community-led demonstration project</span>
+        </div>
+      </div>
+      <div class="hero-art" aria-label="Illustration of a blood donation bag">
+        <div class="art-circle circle-one"></div>
+        <div class="art-circle circle-two"></div>
+        <div class="blood-bag">
+          <div class="bag-cap"></div>
+          <div class="bag-label"><span class="bag-plus">+</span><strong>GIVE BLOOD</strong><small>GIVE LIFE</small>
+          </div>
+          <div class="bag-fluid"></div>
+        </div>
+        <div class="floating-note note-top"><span class="note-icon">♥</span><span><b>Every donor matters</b><small>One
+              thoughtful choice</small></span></div>
+        <div class="floating-note note-bottom"><span class="mini-drop">●</span><span><b>Local
+              connections</b><small>Starting with Gujarat</small></span></div>
+      </div>
+    </section>
+
+    <section class="stats-strip section-wrap" id="dashboard">
+      <div class="stat-item"><span class="stat-icon">♧</span>
+        <div><strong id="donorCount">—</strong><small>Listed demo donors</small></div>
+      </div>
+      <div class="stat-item"><span class="stat-icon">♡</span>
+        <div><strong id="requestCount">—</strong><small>Open demo requests</small></div>
+      </div>
+      <div class="stat-item"><span class="stat-icon">⌖</span>
+        <div><strong>Gujarat</strong><small>Initial map coverage</small></div>
+      </div>
+      <div class="stat-note">Numbers on this page use sample data for demonstration only.</div>
+    </section>
+
+    <section class="section-wrap section-block" id="find">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">FIND A CONNECTION</div>
+          <h2>Find blood donors <span>near you.</span></h2>
+          <p>Start with a blood group and city. You can refine the results in seconds.</p>
+        </div>
+        <span class="section-index">01 / SEARCH</span>
+      </div>
+      <div class="search-panel">
+        <div class="field"><label for="bloodFilter">Blood group</label><select id="bloodFilter">
+            <option value="">All blood groups</option>
+            <option>A+</option>
+            <option>A-</option>
+            <option>B+</option>
+            <option>B-</option>
+            <option>AB+</option>
+            <option>AB-</option>
+            <option>O+</option>
+            <option>O-</option>
+          </select></div>
+        <div class="field"><label for="cityFilter">City / area</label><select id="cityFilter">
+            <option value="">All Gujarat cities</option>
+            <option>Ahmedabad</option>
+            <option>Vadodara</option>
+            <option>Surat</option>
+            <option>Rajkot</option>
+            <option>Gandhinagar</option>
+            <option>Bhavnagar</option>
+          </select></div>
+        <label class="check-field"><input type="checkbox" id="availableOnly" checked><span>Available donors
+            only</span></label>
+        <button class="btn btn-primary search-button" id="searchButton">Search donors <span>→</span></button>
+      </div>
+      <div class="results-head">
+        <div>
+          <h3>Community donor directory</h3>
+          <p id="resultsSummary">Loading sample donors…</p>
+        </div><span class="demo-tag">SAMPLE DATA</span>
+      </div>
+      <div class="donor-grid" id="donorResults" aria-live="polite"></div>
+    </section>
+
+    <section class="section-wrap section-block map-section">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">EXPLORE THE REGION</div>
+          <h2>Our map, starting with <span>Gujarat.</span></h2>
+          <p>Explore the wider India map and zoom into Gujarat. Pins show approximate sample city locations, not
+            verified donor addresses.</p>
+        </div>
+        <span class="section-index">02 / MAP</span>
+      </div>
+      <div class="map-card">
+        <div class="map-toolbar">
+          <div><strong>India · Gujarat</strong><small>OpenStreetMap view</small></div><button class="text-button"
+            id="gujaratView">Zoom to Gujarat ↗</button>
+        </div>
+        <div id="map" role="application"
+          aria-label="Map of India and Gujarat with approximate sample donor city markers"></div>
+        <p class="map-caption">Map pins represent approximate city centres for fictional demo records. © OpenStreetMap
+          contributors.</p>
+      </div>
+    </section>
+
+    <section class="section-wrap section-block two-column" id="register">
+      <div class="form-intro">
+        <div class="eyebrow">BE THE REASON SOMEONE SMILES</div>
+        <h2>Ready to be<br><span>someone's hero?</span></h2>
+        <p>Register your interest as a voluntary donor. This demo saves entries only in this browser; it does not notify
+          hospitals or patients.</p>
+        <div class="soft-callout"><span>♥</span>
+          <div><strong>Give with care</strong><small>Donation eligibility and timing must always be assessed by a
+              qualified medical professional or blood bank.</small></div>
+        </div>
+      </div>
+      <form class="form-card" id="donorForm">
+        <div class="form-title">
+          <h3>Donor registration</h3>
+          <p>Fields marked * are required.</p>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="donorName">Full name *</label><input id="donorName" name="name"
+              placeholder="e.g. Aanya Patel" required maxlength="60"></div>
+          <div class="field"><label for="donorAge">Age *</label><input id="donorAge" name="age" type="number" min="18"
+              max="65" placeholder="18+" required></div>
+        </div>
+        <div class="form-row">
+          <div class="field"><label for="donorBlood">Blood group *</label><select id="donorBlood" required>
+              <option value="">Choose group</option>
+              <option>A+</option>
+              <option>A-</option>
+              <option>B+</option>
+              <option>B-</option>
+              <option>AB+</option>
+              <option>AB-</option>
+              <option>O+</option>
+              <option>O-</option>
+            </select></div>
+          <div class="field"><label for="donorCity">City *</label><select id="donorCity" required>
+              <option value="">Choose city</option>
+              <option>Ahmedabad</option>
+              <option>Vadodara</option>
+              <option>Surat</option>
+              <option>Rajkot</option>
+              <option>Gandhinagar</option>
+              <option>Bhavnagar</option>
+            </select></div>
+        </div>
+        <div class="field"><label for="donorPhone">Mobile number *</label><input id="donorPhone" type="tel"
+            inputmode="numeric" pattern="[6-9][0-9]{9}" placeholder="10-digit mobile number" required></div>
+        <label class="consent"><input type="checkbox" id="donorConsent" required><span>I understand this is a
+            demonstration form and my sample details will be stored in this browser.</span></label>
+        <button class="btn btn-primary full-button" type="submit">Join the donor directory <span>→</span></button>
+        <p class="form-message" id="donorMessage" role="status"></p>
+      </form>
+    </section>
+
+    <section class="section-wrap section-block request-section" id="requests">
+      <div class="section-heading">
+        <div>
+          <div class="eyebrow">A COMMUNITY THAT SHOWS UP</div>
+          <h2>Blood requests <span>board.</span></h2>
+          <p>View sample requests or add a demonstration request. For real emergencies, contact a licensed blood bank or
+            emergency services directly.</p>
+        </div>
+        <span class="section-index">03 / REQUESTS</span>
+      </div>
+      <div class="request-layout">
+        <div class="request-list" id="requestList" aria-live="polite"></div>
+        <form class="form-card request-form" id="request-form">
+          <div class="form-title">
+            <h3>Post a blood request</h3>
+            <p>Demo request only — not sent to a blood bank.</p>
+          </div>
+          <div class="field"><label for="patientName">Patient / contact name *</label><input id="patientName" required
+              maxlength="60" placeholder="Name for this demo request"></div>
+          <div class="form-row">
+            <div class="field"><label for="requestBlood">Blood group *</label><select id="requestBlood" required>
+                <option value="">Choose</option>
+                <option>A+</option>
+                <option>A-</option>
+                <option>B+</option>
+                <option>B-</option>
+                <option>AB+</option>
+                <option>AB-</option>
+                <option>O+</option>
+                <option>O-</option>
+              </select></div>
+            <div class="field"><label for="requestUnits">Units *</label><input id="requestUnits" type="number" min="1"
+                max="10" value="1" required></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label for="requestCity">City *</label><select id="requestCity" required>
+                <option value="">Choose city</option>
+                <option>Ahmedabad</option>
+                <option>Vadodara</option>
+                <option>Surat</option>
+                <option>Rajkot</option>
+                <option>Gandhinagar</option>
+                <option>Bhavnagar</option>
+              </select></div>
+            <div class="field"><label for="urgency">Priority *</label><select id="urgency" required>
+                <option>Normal</option>
+                <option>Urgent</option>
+              </select></div>
+          </div>
+          <div class="field"><label for="hospital">Hospital / blood bank name *</label><input id="hospital" required
+              maxlength="80" placeholder="Enter facility name"></div>
+          <button class="btn btn-primary full-button" type="submit">Add demo request <span>→</span></button>
+          <p class="form-message" id="requestMessage" role="status"></p>
+        </form>
+      </div>
+    </section>
+
+    <section class="compat-section">
+      <div class="section-wrap compat-inner">
+        <div>
+          <div class="eyebrow">LEARN BEFORE YOU SHARE</div>
+          <h2>Blood group<br><span>compatibility guide.</span></h2>
+          <p>A quick educational reference for red blood cell donation compatibility. It is not a clinical matching
+            tool.</p>
+        </div>
+        <div class="compat-card"><label for="compatGroup">Select recipient blood group</label><select id="compatGroup">
+            <option>A+</option>
+            <option>A-</option>
+            <option>B+</option>
+            <option>B-</option>
+            <option>AB+</option>
+            <option>AB-</option>
+            <option>O+</option>
+            <option>O-</option>
+          </select>
+          <div class="compat-output"><span>Compatible red cell donor groups</span><strong id="compatResult">A+, A-, O+,
+              O-</strong></div><small>Final compatibility and transfusion decisions require blood typing, crossmatching
+            and clinical oversight by a qualified professional.</small>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="section-wrap footer-inner"><a class="brand footer-brand" href="#home"><span
+          class="brand-mark">+</span><span>Blood<span class="brand-accent">Link</span></span></a>
+      <p>Made with care as a student project demonstration.</p><a href="https://www.openstreetmap.org/copyright"
+        target="_blank" rel="noopener">Map data © OpenStreetMap contributors</a>
+    </div>
+    <div class="section-wrap disclaimer">Important: BloodLink is a front-end educational prototype. It does not verify
+      donors, determine medical eligibility, match blood for transfusion, or deliver emergency services. Do not use
+      sample records to make medical decisions.</div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>

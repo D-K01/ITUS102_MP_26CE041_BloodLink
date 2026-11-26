@@ -1,0 +1,24 @@
+[
+  {
+    "id": "R001",
+    "patientName": "Demo Patient A",
+    "bloodGroup": "O+",
+    "city": "Vadodara",
+    "units": 2,
+    "urgency": "Urgent",
+    "hospital": "Sample City Hospital",
+    "status": "Open",
+    "createdAt": "2026-11-20"
+  },
+  {
+    "id": "R002",
+    "patientName": "Demo Patient B",
+    "bloodGroup": "A-",
+    "city": "Ahmedabad",
+    "units": 1,
+    "urgency": "Normal",
+    "hospital": "Demo Medical Centre",
+    "status": "Open",
+    "createdAt": "2026-11-22"
+  }
+]

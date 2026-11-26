@@ -1,0 +1,90 @@
+[
+  {
+    "id": "D001",
+    "name": "Aarav Patel",
+    "bloodGroup": "O+",
+    "city": "Vadodara",
+    "phone": "9000000001",
+    "available": true,
+    "lat": 22.3072,
+    "lng": 73.1812,
+    "lastDonation": "2026-03-10"
+  },
+  {
+    "id": "D002",
+    "name": "Meera Shah",
+    "bloodGroup": "A+",
+    "city": "Ahmedabad",
+    "phone": "9000000002",
+    "available": true,
+    "lat": 23.0225,
+    "lng": 72.5714,
+    "lastDonation": "2026-05-12"
+  },
+  {
+    "id": "D003",
+    "name": "Rohan Desai",
+    "bloodGroup": "B-",
+    "city": "Vadodara",
+    "phone": "9000000003",
+    "available": false,
+    "lat": 22.315,
+    "lng": 73.19,
+    "lastDonation": "2026-08-01"
+  },
+  {
+    "id": "D004",
+    "name": "Isha Mehta",
+    "bloodGroup": "O-",
+    "city": "Surat",
+    "phone": "9000000004",
+    "available": true,
+    "lat": 21.1702,
+    "lng": 72.8311,
+    "lastDonation": "2026-02-20"
+  },
+  {
+    "id": "D005",
+    "name": "Kabir Joshi",
+    "bloodGroup": "AB+",
+    "city": "Rajkot",
+    "phone": "9000000005",
+    "available": true,
+    "lat": 22.3039,
+    "lng": 70.8022,
+    "lastDonation": "2026-01-15"
+  },
+  {
+    "id": "D006",
+    "name": "Anaya Trivedi",
+    "bloodGroup": "A-",
+    "city": "Gandhinagar",
+    "phone": "9000000006",
+    "available": true,
+    "lat": 23.2156,
+    "lng": 72.6369,
+    "lastDonation": "2026-04-08"
+  },
+  {
+    "id": "D007",
+    "name": "Vivaan Rao",
+    "bloodGroup": "B+",
+    "city": "Bhavnagar",
+    "phone": "9000000007",
+    "available": true,
+    "lat": 21.7645,
+    "lng": 72.1519,
+    "lastDonation": "2026-06-21"
+  },
+  {
+    "id": "D008",
+    "name": "Diya Nair",
+    "bloodGroup": "AB-",
+    "city": "Ahmedabad",
+    "phone": "9000000008",
+    "available": false,
+    "lat": 23.03,
+    "lng": 72.58,
+    "lastDonation": "2026-07-11"
+  }
+]
